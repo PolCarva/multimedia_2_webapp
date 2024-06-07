@@ -7,7 +7,7 @@ import CardSonidoAmbiental from "./components/CardSonidoAmbiental";
 export default function App() {
   const [nav, setNav] = useState(1);
   const [config, setConfig] = useState({
-    despertar: "8:30am",
+    despertar: "8:30 AM",
     luzAmbiental: {
       desde: 5,
       hasta: 5,

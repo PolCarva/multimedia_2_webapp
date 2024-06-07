@@ -30,13 +30,12 @@ const CardHorario = ({ setConfig }) => {
   };
 
   useEffect(() => {
-    calculateTimeRemaining(); // Inicializar al montar el componente
+    calculateTimeRemaining();
     const interval = setInterval(() => {
-      calculateTimeRemaining(); // Actualización periódica
-      console.log("Intervalo actualizado");
-    }, 30000); // Actualizar cada 30 segundos
-    return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonte
-  }, [selectedTime]); // Dependencias del efecto
+      calculateTimeRemaining();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [selectedTime]);
 
   const toggleModal = () => setModalOpen((prev) => !prev);
 
