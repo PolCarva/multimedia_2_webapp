@@ -44,3 +44,7 @@
 .alpha-picker * {
   border-radius: 2rem !important;
 }
+
+.bg-gradient {
+  background: radial-gradient(circle 65vh at top right, #14098ae7, #04002F);
+}

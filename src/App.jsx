@@ -6,24 +6,36 @@ import CardSonidoAmbiental from "./components/CardSonidoAmbiental";
 
 export default function App() {
   const [nav, setNav] = useState(1);
-  const [config, setConfig] = useState({
-    despertar: "8:30 AM",
+  const defaultConfig = {
+    despertar: {hora: 8, minuto: 30},
     luzAmbiental: {
+      active: true,
       desde: 5,
       hasta: 5,
-      color: { r: 241, g: 112, b: 19, a: 1 }
+      color: { r: 241, g: 112, b: 19, a: 1 },
     },
-    aroma: {},
-    sonidoAmbiental: {},
-  });
+    aroma: {
+      active: true,
+      desde: 5,
+      intervalo: 10,
+    },
+    sonidoAmbiental: {
+      active: true,
+      volumen: 50,
+      desde: 5,
+      hasta: 5,
+      sonido: "lluvia",
+    },
+  };  
+  const storedItem = localStorage.getItem("config");
+  const [config, setConfig] = useState(storedItem ? JSON.parse(storedItem) : defaultConfig)
 
- 
   useEffect(() => {
-    console.log(config);
+    localStorage.setItem("config", JSON.stringify(config));
   }, [config]);
 
   return (
-    <div className="container flex flex-col gap-5 text-white px-5 pt-10 mx-auto min-h-screen bg-gradient-to-br from-indigo-950 via-indigo-900 to-indigo-950">
+    <div className="container pb-5 flex flex-col gap-5 text-white px-5 pt-10 mx-auto min-h-screen bg-gradient">
       <h1 className="font-bold text-4xl">Establece tu rutina</h1>
       <div className="w-full flex justify-around rounded-full border-4 border-gray-900 bg-gray-900 relative">
         <button
@@ -48,10 +60,10 @@ export default function App() {
           }`}
         ></div>
       </div>
-      <CardHorario setConfig={setConfig} />
-      <CardLuzAmbiental setConfig={setConfig} />
-      <CardAroma setConfig={setConfig}/>
-      <CardSonidoAmbiental setConfig={setConfig} />
+      <CardHorario config={config} setConfig={setConfig} />
+      <CardLuzAmbiental config={config} setConfig={setConfig} />
+      <CardAroma config={config} setConfig={setConfig} />
+      <CardSonidoAmbiental config={config} setConfig={setConfig} />
     </div>
   );
 }

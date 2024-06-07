@@ -3,7 +3,7 @@ import Card from "./Card";
 import { FaVolumeLow } from "react-icons/fa6";
 import { Slider } from "@mui/material";
 
-const CardSonidoAmbiental = ({ setConfig }) => {
+const CardSonidoAmbiental = ({ setConfig, config }) => {
   const handleChange = (e, key) => {
 
     setConfig((prev) => ({
@@ -34,7 +34,7 @@ const CardSonidoAmbiental = ({ setConfig }) => {
             <input
               onChange={handleActiveChange}
               type="checkbox"
-              defaultValue=""
+              checked={config.sonidoAmbiental.active}
               className="sr-only peer"
             />
             <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-300" />
@@ -52,6 +52,7 @@ const CardSonidoAmbiental = ({ setConfig }) => {
                 onChange={(e) => handleChange(e, "volumen")}
                 valueLabelDisplay="auto"
                 valueLabelFormat={(x) => `${x}%`}
+                defaultValue={config.sonidoAmbiental.volumen}
                 marks
                 min={20}
                 max={100}
@@ -67,8 +68,8 @@ const CardSonidoAmbiental = ({ setConfig }) => {
             >
               <span>Desde</span>
               <select
-                onChange={(e) => handleChange(e, "tiempo_antes")}
-                defaultValue={"5"}
+                onChange={(e) => handleChange(e, "desde")}
+                defaultValue={config.sonidoAmbiental.desde}
                 id="desde_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
@@ -100,7 +101,7 @@ const CardSonidoAmbiental = ({ setConfig }) => {
               <span>Hasta</span>
               <select
                 onChange={(e) => handleChange(e, "hasta")}
-                defaultValue={"5"}
+                defaultValue={config.sonidoAmbiental.hasta}
                 id="hasta_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
@@ -131,7 +132,7 @@ const CardSonidoAmbiental = ({ setConfig }) => {
               <span>Sonido</span>
               <select
                 onChange={(e) => handleChange(e, "sonido")}
-                defaultValue={"lluvia"}
+                defaultValue={config.sonidoAmbiental.sonido}
                 id="sonido_tipo"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >

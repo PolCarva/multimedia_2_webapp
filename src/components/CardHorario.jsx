@@ -7,15 +7,21 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 
-const CardHorario = ({ setConfig }) => {
+const CardHorario = ({ setConfig, config }) => {
   dayjs.extend(utc);
   dayjs.extend(timezone);
   dayjs.tz.setDefault("America/Montevideo");
   const [modalOpen, setModalOpen] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState({ horas: 0, minutos: 0 });
-  const [time, setTime] = useState("8:30 AM");
+  const initialFormattedTime = dayjs()
+    .set("hour", config.despertar.hora)
+    .set("minute", config.despertar.minuto)
+    .format("hh:mm A");
+  const [time, setTime] = useState(initialFormattedTime);
   const [selectedTime, setSelectedTime] = useState(
-    dayjs().set("hour", 8).set("minute", 30)
+    dayjs()
+      .set("hour", config.despertar.hora)
+      .set("minute", config.despertar.minuto)
   );
 
   const calculateTimeRemaining = () => {
@@ -31,22 +37,28 @@ const CardHorario = ({ setConfig }) => {
 
   useEffect(() => {
     calculateTimeRemaining();
-    const interval = setInterval(() => {
-      calculateTimeRemaining();
-    }, 30000);
+    const interval = setInterval(calculateTimeRemaining, 30000);
     return () => clearInterval(interval);
   }, [selectedTime]);
 
-  const toggleModal = () => setModalOpen((prev) => !prev);
+  const toggleModal = () => setModalOpen(!modalOpen);
 
   const handleChange = (newValue) => {
     setSelectedTime(newValue);
+    setTime(newValue.format("hh:mm A"));
   };
 
   const handleSave = () => {
-    const formattedTime = selectedTime.format("hh:mm A");
-    setTime(formattedTime);
-    setConfig((prev) => ({ ...prev, despertar: formattedTime }));
+    const newHour = selectedTime.hour();
+    const newMinute = selectedTime.minute();
+    setConfig((prev) => ({
+      ...prev,
+      despertar: {
+        ...prev.despertar,
+        hora: newHour,
+        minuto: newMinute,
+      },
+    }));
     toggleModal();
   };
 
@@ -63,7 +75,11 @@ const CardHorario = ({ setConfig }) => {
           <span>Horario de acostarse: </span>
           <span className="block font-bold text-6xl mt-4">{time}</span>
           <span className="block text-sm mt-2 text-right text-white/50">
-            en {timeRemaining.horas} hora{timeRemaining.horas > 1 ? "s" : ""} y{" "}
+            {timeRemaining.horas > 0
+              ? `Faltan ${timeRemaining.horas} hora${
+                  timeRemaining.horas > 1 ? "s" : ""
+                } y `
+              : "Faltan "}
             {timeRemaining.minutos} minuto{timeRemaining.minutos > 1 ? "s" : ""}
           </span>
         </Card>

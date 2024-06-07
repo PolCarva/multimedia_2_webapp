@@ -3,8 +3,8 @@ import Card from "./Card";
 import { FaLightbulb } from "react-icons/fa";
 import { SliderPicker, AlphaPicker } from "react-color";
 
-const CardLuzAmbiental = ({ setConfig }) => {
-  const [color, setColor] = useState({ r: 241, g: 112, b: 19, a: 1 });
+const CardLuzAmbiental = ({ setConfig, config }) => {
+  const [color, setColor] = useState(config.luzAmbiental.color);
 
   const handleOnOffChange = (e) => {
     setConfig((prevConfig) => ({
@@ -52,7 +52,7 @@ const CardLuzAmbiental = ({ setConfig }) => {
             <input
               onChange={handleOnOffChange}
               type="checkbox"
-              defaultValue=""
+              checked={config.luzAmbiental.active}
               className="sr-only peer"
             />
             <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-300" />
@@ -79,7 +79,7 @@ const CardLuzAmbiental = ({ setConfig }) => {
               <select
                 onChange={handleFromTimeChange}
                 id="minutos_antes_luz_ambiental"
-                defaultValue="5"
+                defaultValue={config.luzAmbiental.desde}
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
                 <option className="text-black" value="5">
@@ -110,7 +110,7 @@ const CardLuzAmbiental = ({ setConfig }) => {
               <select
                 onChange={handleToTimeChange}
                 id="hasta_luz_ambiental"
-                defaultValue="5"
+                defaultValue={config.luzAmbiental.hasta}
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
                 <option className="text-black" value="5">
