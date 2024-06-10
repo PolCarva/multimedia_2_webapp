@@ -7,7 +7,7 @@ import CardSonidoAmbiental from "./components/CardSonidoAmbiental";
 export default function App() {
   const [nav, setNav] = useState(1);
   const defaultConfig = {
-    despertar: {hora: 8, minuto: 30},
+    despertar: { hora: 8, minuto: 30 },
     luzAmbiental: {
       active: true,
       desde: 5,
@@ -26,16 +26,18 @@ export default function App() {
       hasta: 5,
       sonido: "lluvia",
     },
-  };  
+  };
   const storedItem = localStorage.getItem("config");
-  const [config, setConfig] = useState(storedItem ? JSON.parse(storedItem) : defaultConfig)
+  const [config, setConfig] = useState(
+    storedItem ? JSON.parse(storedItem) : defaultConfig
+  );
 
   useEffect(() => {
     localStorage.setItem("config", JSON.stringify(config));
   }, [config]);
 
   return (
-    <div className="container pb-5 flex flex-col gap-5 text-white px-5 pt-10 mx-auto min-h-screen bg-gradient">
+    <div className="container overflow-hidden pb-5 space-y-5 text-white px-5 pt-10 mx-auto min-h-screen bg-gradient">
       <h1 className="font-bold text-4xl">Establece tu rutina</h1>
       <div className="w-full flex justify-around rounded-full border-4 border-gray-900 bg-gray-900 relative">
         <button
@@ -60,10 +62,26 @@ export default function App() {
           }`}
         ></div>
       </div>
-      <CardHorario config={config} setConfig={setConfig} />
-      <CardLuzAmbiental config={config} setConfig={setConfig} />
-      <CardAroma config={config} setConfig={setConfig} />
-      <CardSonidoAmbiental config={config} setConfig={setConfig} />
+      <div className={`flex gap-5 transition duration-300 ${nav === 1 ? "translate-x-0" : "-translate-x-[calc(100%+1.25rem)]"}`}>
+        {/* Despertar */}
+        <div className="flex min-w-[calc(100svw-2.5rem)] flex-row">
+          <div className="flex w-full container flex-col gap-5">
+            <CardHorario config={config} setConfig={setConfig} />
+            <CardLuzAmbiental config={config} setConfig={setConfig} />
+            <CardAroma config={config} setConfig={setConfig} />
+            <CardSonidoAmbiental config={config} setConfig={setConfig} />
+          </div>
+        </div>
+        {/* Acostarse */}
+        <div className="flex flex-row min-w-[calc(100svw-2.5rem)]">
+          <div className="flex w-full container flex-col gap-5">
+            <CardHorario config={config} setConfig={setConfig} />
+            <CardLuzAmbiental config={config} setConfig={setConfig} />
+            <CardAroma config={config} setConfig={setConfig} />
+            <CardSonidoAmbiental config={config} setConfig={setConfig} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
