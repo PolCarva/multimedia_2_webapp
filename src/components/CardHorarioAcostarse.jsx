@@ -8,21 +8,21 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import ReactDOM from "react-dom";
 
-const CardHorario = ({ setConfig, config }) => {
+const CardHorarioAcostarse = ({ setConfig, config }) => {
   dayjs.extend(utc);
   dayjs.extend(timezone);
   dayjs.tz.setDefault("America/Montevideo");
   const [modalOpen, setModalOpen] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState({ horas: 0, minutos: 0 });
   const initialFormattedTime = dayjs()
-    .set("hour", config.despertar.hora)
-    .set("minute", config.despertar.minuto)
+    .set("hour", config.acostarse.hora)
+    .set("minute", config.acostarse.minuto)
     .format("hh:mm A");
   const [time, setTime] = useState(initialFormattedTime);
   const [selectedTime, setSelectedTime] = useState(
     dayjs()
-      .set("hour", config.despertar.hora)
-      .set("minute", config.despertar.minuto)
+      .set("hour", config.acostarse.hora)
+      .set("minute", config.acostarse.minuto)
   );
 
   const calculateTimeRemaining = () => {
@@ -54,8 +54,8 @@ const CardHorario = ({ setConfig, config }) => {
     const newMinute = selectedTime.minute();
     setConfig((prev) => ({
       ...prev,
-      despertar: {
-        ...prev.despertar,
+      acostarse: {
+        ...prev.acostarse,
         hora: newHour,
         minuto: newMinute,
       },
@@ -74,7 +74,7 @@ const CardHorario = ({ setConfig, config }) => {
       )}
       <div onClick={toggleModal}>
         <Card>
-          <span>Me quiero despertar a las: </span>
+          <span>Me quiero dormir a las: </span>
           <span className="block font-bold text-6xl mt-4">{time}</span>
           <span className="block text-sm mt-2 text-right text-white/50">
             {timeRemaining.horas > 0
@@ -86,7 +86,6 @@ const CardHorario = ({ setConfig, config }) => {
           </span>
         </Card>
       </div>
-      
     </>
   );
 };
@@ -136,5 +135,4 @@ const Modal = ({ selectedTime, handleChange, handleSave, toggleModal }) => {
   );
 };
 
-
-export default CardHorario;
+export default CardHorarioAcostarse;

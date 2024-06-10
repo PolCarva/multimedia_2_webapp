@@ -3,21 +3,41 @@ import CardHorario from "./components/CardHorario";
 import CardLuzAmbiental from "./components/CardLuzAmbiental";
 import CardAroma from "./components/CardAroma";
 import CardSonidoAmbiental from "./components/CardSonidoAmbiental";
+import CardHorarioAcostarse from "./components/CardHorarioAcostarse";
+import CardLuzAmbientalDespertar from "./components/CardLuzAmbientalDespertar";
+import CardAromaDespertar from "./components/CardAromaDespertar";
+import CardSonidoAmbientalDespertar from "./components/CardSonidoAmbientalDespertar";
+import CardAlarmaDespertar from "./components/CardAlarmaDespertar";
 
 export default function App() {
+  localStorage.removeItem("config");
+
   const [nav, setNav] = useState(1);
   const defaultConfig = {
     despertar: { hora: 8, minuto: 30 },
+    acostarse: { hora: 20, minuto: 30 },
     luzAmbiental: {
       active: true,
       desde: 5,
       hasta: 5,
       color: { r: 241, g: 112, b: 19, a: 1 },
+      despertar: {
+        active: true,
+        intervalo: 10,
+        desde: 5,
+        hasta: 5,
+        color: { r: 241, g: 112, b: 19, a: 1 },
+      },
     },
     aroma: {
       active: true,
       desde: 5,
       intervalo: 10,
+      despertar: {
+        active: true,
+        intervalo: 10,
+        desde: 5,
+      },
     },
     sonidoAmbiental: {
       active: true,
@@ -25,6 +45,17 @@ export default function App() {
       desde: 5,
       hasta: 5,
       sonido: "lluvia",
+      despertar: {
+        active: true,
+        intervalo: 10,
+        desde: 5,
+        sonido: "lluvia",
+      },
+    },
+    alarma: {
+      active: true,
+      sonido: "guitarra",
+      volumen: 60,
     },
   };
   const storedItem = localStorage.getItem("config");
@@ -34,6 +65,7 @@ export default function App() {
 
   useEffect(() => {
     localStorage.setItem("config", JSON.stringify(config));
+    console.log(config);
   }, [config]);
 
   return (
@@ -46,7 +78,7 @@ export default function App() {
             nav === 2 && "!text-gray-500"
           } w-full p-3 transition text-white relative z-10 font-bold`}
         >
-          Despertar
+          Acostarse
         </button>
         <button
           onClick={() => setNav(2)}
@@ -54,7 +86,7 @@ export default function App() {
             nav === 1 && "!text-gray-500"
           } w-full p-3 transition text-white relative z-10 font-bold`}
         >
-          Acostarse
+          Despertar
         </button>
         <div
           className={`absolute w-1/2 h-full top-0 rounded-full bg-blue-900 transition-all duration-300 ease-in-out ${
@@ -62,23 +94,33 @@ export default function App() {
           }`}
         ></div>
       </div>
-      <div className={`flex gap-5 transition duration-300 ${nav === 1 ? "translate-x-0" : "-translate-x-[calc(100%+1.25rem)]"}`}>
-        {/* Despertar */}
+      <div
+        className={`flex gap-5 transition duration-300 ${
+          nav === 1 ? "translate-x-0" : "-translate-x-[calc(100%+1.25rem)]"
+        }`}
+      >
+        {/* Acostarse */}
         <div className="flex min-w-[calc(100svw-2.5rem)] flex-row">
           <div className="flex w-full container flex-col gap-5">
-            <CardHorario config={config} setConfig={setConfig} />
+            <CardHorarioAcostarse config={config} setConfig={setConfig} />
             <CardLuzAmbiental config={config} setConfig={setConfig} />
             <CardAroma config={config} setConfig={setConfig} />
             <CardSonidoAmbiental config={config} setConfig={setConfig} />
           </div>
         </div>
-        {/* Acostarse */}
+
+        {/* Despertar */}
         <div className="flex flex-row min-w-[calc(100svw-2.5rem)]">
           <div className="flex w-full container flex-col gap-5">
             <CardHorario config={config} setConfig={setConfig} />
-            <CardLuzAmbiental config={config} setConfig={setConfig} />
-            <CardAroma config={config} setConfig={setConfig} />
-            <CardSonidoAmbiental config={config} setConfig={setConfig} />
+
+            <CardAlarmaDespertar config={config} setConfig={setConfig} />
+            <CardLuzAmbientalDespertar config={config} setConfig={setConfig} />
+            <CardAromaDespertar config={config} setConfig={setConfig} />
+            <CardSonidoAmbientalDespertar
+              config={config}
+              setConfig={setConfig}
+            />
           </div>
         </div>
       </div>
