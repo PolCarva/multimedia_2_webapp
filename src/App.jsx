@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import { database } from "../firebaseconfig";
+import { get, push, ref, set } from "firebase/database";
+
+// Importa tus componentes aquí
 import CardHorario from "./components/CardHorario";
 import CardLuzAmbiental from "./components/CardLuzAmbiental";
 import CardAroma from "./components/CardAroma";
@@ -8,65 +12,52 @@ import CardLuzAmbientalDespertar from "./components/CardLuzAmbientalDespertar";
 import CardAromaDespertar from "./components/CardAromaDespertar";
 import CardSonidoAmbientalDespertar from "./components/CardSonidoAmbientalDespertar";
 import CardAlarmaDespertar from "./components/CardAlarmaDespertar";
+import { defaultConfig } from "./stables";
 
 export default function App() {
-  localStorage.removeItem("config");
-
   const [nav, setNav] = useState(1);
-  const defaultConfig = {
-    despertar: { hora: 8, minuto: 30 },
-    acostarse: { hora: 20, minuto: 30 },
-    luzAmbiental: {
-      active: true,
-      desde: 5,
-      hasta: 5,
-      color: { r: 241, g: 112, b: 19, a: 1 },
-      despertar: {
-        active: true,
-        intervalo: 10,
-        desde: 5,
-        hasta: 5,
-        color: { r: 241, g: 112, b: 19, a: 1 },
-      },
-    },
-    aroma: {
-      active: true,
-      desde: 5,
-      intervalo: 10,
-      despertar: {
-        active: true,
-        intervalo: 10,
-        desde: 5,
-      },
-    },
-    sonidoAmbiental: {
-      active: true,
-      volumen: 50,
-      desde: 5,
-      hasta: 5,
-      sonido: "lluvia",
-      despertar: {
-        active: true,
-        intervalo: 10,
-        desde: 5,
-        sonido: "lluvia",
-      },
-    },
-    alarma: {
-      active: true,
-      sonido: "guitarra",
-      volumen: 60,
-    },
+  const [config, setConfig] = useState({}); // Cambiado a objeto vacío
+
+  const getConfig = async (e) => {
+    try {
+      //verificar que el usuario no exista
+      const configRef = ref(database, "Config");
+      const snapshot = await get(configRef);
+      if (snapshot.exists()) {
+        const configVal = snapshot.val();
+        setConfig(configVal);
+        console.log("Config data:", config);
+      } else {
+        await set(ref(database, "Config"), defaultConfig);
+        setConfig(defaultConfig);
+      }
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
-  const storedItem = localStorage.getItem("config");
-  const [config, setConfig] = useState(
-    storedItem ? JSON.parse(storedItem) : defaultConfig
-  );
+
+  const setConfigDB = async (config) => {
+    try {
+      await set(ref(database, "Config"), config);
+      console.log("Config data:", config);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  }
 
   useEffect(() => {
-    localStorage.setItem("config", JSON.stringify(config));
-    console.log(config);
+    getConfig();
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(config).length > 0) {
+      setConfigDB(config);
+    }
   }, [config]);
+
+  if (Object.keys(config).length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container overflow-hidden pb-5 space-y-5 text-white px-5 pt-10 mx-auto min-h-screen bg-gradient">
