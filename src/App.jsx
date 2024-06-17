@@ -16,11 +16,10 @@ import { defaultConfig } from "./stables";
 
 export default function App() {
   const [nav, setNav] = useState(1);
-  const [config, setConfig] = useState({}); // Cambiado a objeto vacío
+  const [config, setConfig] = useState({});
 
   const getConfig = async (e) => {
     try {
-      //verificar que el usuario no exista
       const configRef = ref(database, "Config");
       const snapshot = await get(configRef);
       if (snapshot.exists()) {
@@ -56,7 +55,7 @@ export default function App() {
   }, [config]);
 
   if (Object.keys(config).length === 0) {
-    return <div>Loading...</div>;
+    return <div className="w-full h-svh grid place-content-center bg-gradient text-white text-xl font-bold text-center">Loading...</div>;
   }
 
   return (
@@ -104,7 +103,6 @@ export default function App() {
         <div className="flex flex-row min-w-[calc(100svw-2.5rem)]">
           <div className="flex w-full container flex-col gap-5">
             <CardHorario config={config} setConfig={setConfig} />
-
             <CardAlarmaDespertar config={config} setConfig={setConfig} />
             <CardLuzAmbientalDespertar config={config} setConfig={setConfig} />
             <CardAromaDespertar config={config} setConfig={setConfig} />
