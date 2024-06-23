@@ -10,7 +10,7 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
       ...prev,
       sonidoAmbiental: {
         ...prev.sonidoAmbiental,
-        [key]: e.target.value,
+        [key]: typeof e.target.value === "string" ? parseInt(e.target.value) : e.target.value,
       },
     }));
   };
@@ -52,7 +52,7 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
                 onChange={(e) => handleChange(e, "volumen")}
                 valueLabelDisplay="auto"
                 valueLabelFormat={(x) => `${x}%`}
-                defaultValue={config.sonidoAmbiental.volumen}
+                defaultValue={config.sonidoAmbiental.volumen || 60}
                 marks
                 min={20}
                 max={100}
@@ -69,7 +69,7 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
               <span>Desde</span>
               <select
                 onChange={(e) => handleChange(e, "desde")}
-                defaultValue={config.sonidoAmbiental.desde}
+                defaultValue={config.sonidoAmbiental.desde || 5}
                 id="desde_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
@@ -101,7 +101,7 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
               <span>Hasta</span>
               <select
                 onChange={(e) => handleChange(e, "hasta")}
-                defaultValue={config.sonidoAmbiental.hasta}
+                defaultValue={config.sonidoAmbiental.hasta || 20}
                 id="hasta_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
@@ -132,23 +132,23 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
               <span>Sonido</span>
               <select
                 onChange={(e) => handleChange(e, "sonido")}
-                defaultValue={config.sonidoAmbiental.sonido}
+                defaultValue={config.sonidoAmbiental.sonido || 1}
                 id="sonido_tipo"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="lluvia">
+                <option className="text-black" value={1}>
                   Lluvia
                 </option>
-                <option className="text-black" value="zen">
+                <option className="text-black" value={2}>
                   Zen
                 </option>
-                <option className="text-black" value="jungla">
+                <option className="text-black" value={3}>
                   Jungla
                 </option>
-                <option className="text-black" value="guitarra">
+                <option className="text-black" value={4}>
                   Guitarra
                 </option>
-                <option className="text-black" value="piano">
+                <option className="text-black" value={5}>
                   Piano
                 </option>
               </select>

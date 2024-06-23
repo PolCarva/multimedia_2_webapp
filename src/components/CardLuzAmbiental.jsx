@@ -39,7 +39,7 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
   const handleToTimeChange = (e) => {
     setConfig((prevConfig) => ({
       ...prevConfig,
-      luzAmbiental: { ...prevConfig.luzAmbiental, hasta: e.target.value },
+      luzAmbiental: { ...prevConfig.luzAmbiental, hasta: parseInt(e.target.value) },
     }));
   };
 

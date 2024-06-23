@@ -11,7 +11,7 @@ const CardSonidoAmbientalDespertar = ({ setConfig, config }) => {
         ...prev.sonidoAmbiental,
         despertar: {
           ...prev.sonidoAmbiental.despertar,
-          [key]: e.target.value,
+          [key]: typeof e.target.value === "string" ? parseInt(e.target.value) : e.target.value,
         },
       },
     }));
@@ -57,7 +57,7 @@ const CardSonidoAmbientalDespertar = ({ setConfig, config }) => {
                 onChange={(e) => handleChange(e, "volumen")}
                 valueLabelDisplay="auto"
                 valueLabelFormat={(x) => `${x}%`}
-                defaultValue={config.sonidoAmbiental.despertar.volumen}
+                defaultValue={config.sonidoAmbiental.despertar.volumen || 60}
                 marks
                 min={20}
                 max={100}
@@ -74,7 +74,7 @@ const CardSonidoAmbientalDespertar = ({ setConfig, config }) => {
               <span>Desde</span>
               <select
                 onChange={(e) => handleChange(e, "desde")}
-                defaultValue={config.sonidoAmbiental.despertar.desde}
+                defaultValue={config.sonidoAmbiental.despertar.desde || 5}
                 id="desde_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
@@ -106,23 +106,23 @@ const CardSonidoAmbientalDespertar = ({ setConfig, config }) => {
               <span>Sonido</span>
               <select
                 onChange={(e) => handleChange(e, "sonido")}
-                defaultValue={config.sonidoAmbiental.despertar.sonido}
+                defaultValue={config.sonidoAmbiental.despertar.sonido || 1}
                 id="sonido_tipo"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="lluvia">
+                <option className="text-black" value={1}>
                   Lluvia
                 </option>
-                <option className="text-black" value="zen">
+                <option className="text-black" value={2}>
                   Zen
                 </option>
-                <option className="text-black" value="jungla">
+                <option className="text-black" value={3}>
                   Jungla
                 </option>
-                <option className="text-black" value="guitarra">
+                <option className="text-black" value={4}>
                   Guitarra
                 </option>
-                <option className="text-black" value="piano">
+                <option className="text-black" value={5}>
                   Piano
                 </option>
               </select>
