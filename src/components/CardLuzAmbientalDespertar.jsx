@@ -26,7 +26,7 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
       ...prevConfig,
       luzAmbiental: {
         ...prevConfig.luzAmbiental,
-        despertar: { color: color.rgb },
+        despertar: { ...prevConfig.luzAmbiental.despertar, color: color.rgb },
       },
     }));
   };
@@ -37,7 +37,7 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
       ...prevConfig,
       luzAmbiental: {
         ...prevConfig.luzAmbiental,
-        despertar: { color: color.rgb },
+        despertar: { ...prevConfig.luzAmbiental.despertar, color: color.rgb },
       },
     }));
   };
@@ -47,7 +47,16 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
       ...prevConfig,
       luzAmbiental: {
         ...prevConfig.luzAmbiental,
-        despertar: { desde: e.target.value },
+        despertar: { ...prevConfig.luzAmbiental.despertar, desde: parseInt(e.target.value) },
+      },
+    }));
+  };
+  const handleToTimeChange = (e) => {
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      luzAmbiental: {
+        ...prevConfig.luzAmbiental,
+        despertar: { ...prevConfig.luzAmbiental.despertar, hasta: parseInt(e.target.value) },
       },
     }));
   };
@@ -92,6 +101,20 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
                 <Options />
+              </select>
+            </label>
+            <label
+              htmlFor="minutos_despues_luz_ambiental"
+              className="flex flex-col gap-1 text-sm font-medium text-white"
+            >
+              <span>Hasta</span>
+              <select
+                onChange={handleToTimeChange}
+                id="minutos_despues_luz_ambiental"
+                defaultValue={config.luzAmbiental.despertar.desde || 1}
+                className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
+              >
+                <Options post />
               </select>
             </label>
           </div>
