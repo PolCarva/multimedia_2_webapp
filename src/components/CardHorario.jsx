@@ -109,7 +109,7 @@ const Modal = ({ selectedTime, handleChange, handleSave, toggleModal }) => {
               </h2>
               <TimeClock
                 ampm={false}
-                minutesStep={5}
+                minutesStep={1}
                 value={selectedTime}
                 onChange={handleChange}
               />
