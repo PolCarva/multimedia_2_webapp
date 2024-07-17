@@ -2,15 +2,18 @@ import React from "react";
 import Card from "./Card";
 import { FaVolumeLow } from "react-icons/fa6";
 import { Slider } from "@mui/material";
+import Options from "./Options";
 
 const CardSonidoAmbiental = ({ setConfig, config }) => {
   const handleChange = (e, key) => {
-
     setConfig((prev) => ({
       ...prev,
       sonidoAmbiental: {
         ...prev.sonidoAmbiental,
-        [key]: typeof e.target.value === "string" ? parseInt(e.target.value) : e.target.value,
+        [key]:
+          typeof e.target.value === "string"
+            ? parseInt(e.target.value)
+            : e.target.value,
       },
     }));
   };
@@ -69,28 +72,11 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
               <span>Desde</span>
               <select
                 onChange={(e) => handleChange(e, "desde")}
-                defaultValue={config.sonidoAmbiental.desde || 5}
+                defaultValue={config.sonidoAmbiental.desde || 1}
                 id="desde_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="5">
-                  5 minutos antes
-                </option>
-                <option className="text-black" value="10">
-                  10 minutos antes
-                </option>
-                <option className="text-black" value="15">
-                  15 minutos antes
-                </option>
-                <option className="text-black" value="20">
-                  20 minutos antes
-                </option>
-                <option className="text-black" value="25">
-                  25 minutos antes
-                </option>
-                <option className="text-black" value="30">
-                  30 minutos antes
-                </option>
+                <Options />
               </select>
             </label>
 
@@ -105,24 +91,7 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
                 id="hasta_sonido"
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="5">
-                  5 minutos después
-                </option>
-                <option className="text-black" value="10">
-                  10 minutos después
-                </option>
-                <option className="text-black" value="15">
-                  15 minutos después
-                </option>
-                <option className="text-black" value="20">
-                  20 minutos después
-                </option>
-                <option className="text-black" value="25">
-                  25 minutos después
-                </option>
-                <option className="text-black" value="30">
-                  30 minutos después
-                </option>
+                <Options post />
               </select>
             </label>
             <label
@@ -137,19 +106,19 @@ const CardSonidoAmbiental = ({ setConfig, config }) => {
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
                 <option className="text-black" value={1}>
-                  Lluvia
+                  Tibetano
                 </option>
                 <option className="text-black" value={2}>
-                  Zen
+                  Bosque
                 </option>
                 <option className="text-black" value={3}>
-                  Jungla
+                  Océano
                 </option>
                 <option className="text-black" value={4}>
-                  Guitarra
+                  Lluvia
                 </option>
                 <option className="text-black" value={5}>
-                  Piano
+                  Jungla
                 </option>
               </select>
             </label>

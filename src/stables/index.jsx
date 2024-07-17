@@ -8,7 +8,6 @@ export const defaultConfig = {
     color: { r: 241, g: 112, b: 19, a: 1 },
     despertar: {
       active: true,
-      intervalo: 10,
       desde: 5,
       hasta: 5,
       color: { r: 241, g: 112, b: 19, a: 1 },
@@ -17,10 +16,10 @@ export const defaultConfig = {
   aroma: {
     active: true,
     desde: 5,
-    intervalo: 10,
+    hasta: 10,
     despertar: {
       active: true,
-      intervalo: 10,
+      hasta: 10,
       desde: 5,
     },
   },
@@ -32,7 +31,7 @@ export const defaultConfig = {
     sonido: "lluvia",
     despertar: {
       active: true,
-      intervalo: 10,
+      hasta: 10,
       desde: 5,
       sonido: "lluvia",
     },

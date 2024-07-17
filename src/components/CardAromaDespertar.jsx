@@ -1,25 +1,35 @@
 import React from "react";
 import Card from "./Card";
 import { PiWavesBold } from "react-icons/pi";
+import Options from "./Options";
 
 const CardAromaDespertar = ({ setConfig, config }) => {
   const handleFromTimeChange = (e) => {
     setConfig((prevConfig) => ({
       ...prevConfig,
-      aroma: { ...prevConfig.aroma, despertar: { ...prevConfig.aroma.despertar, desde: e.target.value } },
+      aroma: {
+        ...prevConfig.aroma,
+        despertar: { ...prevConfig.aroma.despertar, desde: e.target.value },
+      },
     }));
   };
 
-  const handleIntervalChange = (e) => {
+  const handleHastaChange = (e) => {
     setConfig((prevConfig) => ({
       ...prevConfig,
-      aroma: { ...prevConfig.aroma, despertar: { ...prevConfig.aroma.despertar, intervalo: e.target.value } },
+      aroma: {
+        ...prevConfig.aroma,
+        despertar: { ...prevConfig.aroma.despertar, hasta: parseInt(e.target.value) },
+      },
     }));
   };
   const handleOnOffChange = (e) => {
     setConfig((prevConfig) => ({
       ...prevConfig,
-      aroma: { ...prevConfig.aroma, despertar: { ...prevConfig.aroma.despertar, active: e.target.checked } },
+      aroma: {
+        ...prevConfig.aroma,
+        despertar: { ...prevConfig.aroma.despertar, active: e.target.checked },
+      },
     }));
   };
   return (
@@ -53,55 +63,21 @@ const CardAromaDespertar = ({ setConfig, config }) => {
                 defaultValue={config.aroma.desde}
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="5">
-                  5 minutos antes
-                </option>
-                <option className="text-black" value="10">
-                  10 minutos antes
-                </option>
-                <option className="text-black" value="15">
-                  15 minutos antes
-                </option>
-                <option className="text-black" value="20">
-                  20 minutos antes
-                </option>
-                <option className="text-black" value="25">
-                  25 minutos antes
-                </option>
-                <option className="text-black" value="30">
-                  30 minutos antes
-                </option>
+                <Options />
               </select>
             </label>
             <label
-              htmlFor="intervalo_aroma"
+              htmlFor="hasta_despertar_aroma"
               className="flex flex-col gap-1 text-sm font-medium text-white"
             >
-              <span>Intervalos</span>
+              <span>Hasta</span>
               <select
-                id="intervalo_aroma"
-                onChange={handleIntervalChange}
-                defaultValue={config.aroma.intervalo}
+                id="hasta_despertar_aroma"
+                onChange={handleHastaChange}
+                defaultValue={config.aroma.hasta}
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="5">
-                  Cada 5 minutos
-                </option>
-                <option className="text-black" value="10">
-                  Cada 10 minutos
-                </option>
-                <option className="text-black" value="15">
-                  Cada 15 minutos
-                </option>
-                <option className="text-black" value="20">
-                  Cada 20 minutos
-                </option>
-                <option className="text-black" value="25">
-                  Cada 25 minutos
-                </option>
-                <option className="text-black" value="30">
-                  Cada 30 minutos
-                </option>
+                <Options post />
               </select>
             </label>
           </div>

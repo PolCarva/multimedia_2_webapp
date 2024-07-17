@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Card from "./Card";
 import { FaLightbulb } from "react-icons/fa";
 import { SliderPicker, AlphaPicker } from "react-color";
+import Options from "./Options";
 
 const CardLuzAmbiental = ({ setConfig, config }) => {
   const [color, setColor] = useState(config.luzAmbiental.despertarcolor);
@@ -87,27 +88,10 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
               <select
                 onChange={handleFromTimeChange}
                 id="minutos_antes_luz_ambiental"
-                defaultValue={config.luzAmbiental.despertar.desde}
+                defaultValue={config.luzAmbiental.despertar.desde || 1}
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
-                <option className="text-black" value="5">
-                  5 minutos antes
-                </option>
-                <option className="text-black" value="10">
-                  10 minutos antes
-                </option>
-                <option className="text-black" value="15">
-                  15 minutos antes
-                </option>
-                <option className="text-black" value="20">
-                  20 minutos antes
-                </option>
-                <option className="text-black" value="25">
-                  25 minutos antes
-                </option>
-                <option className="text-black" value="30">
-                  30 minutos antes
-                </option>
+                <Options />
               </select>
             </label>
           </div>

@@ -9,7 +9,10 @@ const CardAlarmaDespertar = ({ setConfig, config }) => {
       ...prev,
       alarma: {
         ...prev.alarma,
-        [key]: typeof(e.target.value) === "string" ? parseInt(e.target.value) : e.target.value,
+        [key]:
+          typeof e.target.value === "string"
+            ? parseInt(e.target.value)
+            : e.target.value,
       },
     }));
   };
@@ -73,19 +76,19 @@ const CardAlarmaDespertar = ({ setConfig, config }) => {
                 className="bg-transparent border text-white text-sm rounded-lg block w-full p-2.5"
               >
                 <option className="text-black" value={1}>
-                  Lluvia
+                  Tibetano
                 </option>
                 <option className="text-black" value={2}>
-                  Zen
+                  Bosque
                 </option>
                 <option className="text-black" value={3}>
-                  Jungla
+                  Océano
                 </option>
                 <option className="text-black" value={4}>
-                  Guitarra
+                  Lluvia
                 </option>
                 <option className="text-black" value={5}>
-                  Heavy Metal
+                  Jungla
                 </option>
               </select>
             </label>
