@@ -5,7 +5,7 @@ import { SliderPicker, AlphaPicker } from "react-color";
 import Options from "./Options";
 
 const CardLuzAmbiental = ({ setConfig, config }) => {
-  const [color, setColor] = useState(config.luzAmbiental.despertarcolor);
+  const [color, setColor] = useState(config.luzAmbiental.despertar.color);
 
   const handleOnOffChange = (e) => {
     setConfig((prevConfig) => ({
@@ -33,6 +33,7 @@ const CardLuzAmbiental = ({ setConfig, config }) => {
 
   const handleChangeAlpha = (color) => {
     setColor((prevColor) => ({ ...prevColor, a: color.rgb.a }));
+    console.log("Color: ", color.rgb);
     setConfig((prevConfig) => ({
       ...prevConfig,
       luzAmbiental: {
