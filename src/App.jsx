@@ -106,10 +106,10 @@ export default function App() {
             <CardAlarmaDespertar config={config} setConfig={setConfig} />
             <CardLuzAmbientalDespertar config={config} setConfig={setConfig} />
             <CardAromaDespertar config={config} setConfig={setConfig} />
-            <CardSonidoAmbientalDespertar
+           {/*  <CardSonidoAmbientalDespertar
               config={config}
               setConfig={setConfig}
-            />
+            /> */}
           </div>
         </div>
       </div>
