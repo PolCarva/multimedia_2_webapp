@@ -48,7 +48,7 @@ const CardAlarmaDespertar = ({ setConfig, config }) => {
           </div>
 
           <div className="flex-1 flex flex-col gap-3">
-            <label className="flex mt-2 flex-col text-sm font-medium text-white">
+            {/* <label className="flex mt-2 flex-col text-sm font-medium text-white">
               <span className="-mb-4">Volumen</span>
               <Slider
                 onChange={(e) => handleChange(e, "volumen")}
@@ -62,7 +62,7 @@ const CardAlarmaDespertar = ({ setConfig, config }) => {
                 className="!h-3"
                 color="white"
               />
-            </label>
+            </label> */}
 
             <label
               htmlFor="sonido_tipo"
